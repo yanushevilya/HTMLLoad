@@ -32,7 +32,7 @@ public class DbWork {
     // --------Заполнение таблицы--------
     public static void WriteDB() throws SQLException
     {
-        statmt.execute("INSERT INTO [product] (`code`, `name`, `image`, `coast`) VALUES (12347, 'Суши', 'fotosushi.jpg', 14400);");
+        statmt.execute("INSERT INTO [product] (`code`, `name`, `image`, `coast`) VALUES (12348, 'Суши', 'fotosushi.jpg', 14400);");
         System.out.println("Таблица заполнена");
     }
 

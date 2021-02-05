@@ -43,15 +43,20 @@ public class AppMain {
 
     BufferedWriter bw;
 
-
     // список всех ссылок на все товары в локации
     Set<String> linksOnProduct = new TreeSet<>();
 
+    public AppMain() throws SQLException {
+    }
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         AppMain appMain = new AppMain();
-        DbWork.Conn();
-        DbWork.CreateDB();
-        DbWork.WriteDB();
+//        DbWork.Conn();
+//        DbWork.CreateDB();
+//        DbWork.WriteDB();
+        // Создаем экземпляр по работе с БД
+        DbHandler dbHandler = DbHandler.getInstance();
+
 
         // получаем ссылки на страницы всех подкатегорий товаров
         Document document = appMain.getCookies(appMain.html+appMain.location);
@@ -68,20 +73,10 @@ public class AppMain {
             for (Element l: linksPagination) {
                 System.out.println(l.absUrl("href"));
                 appMain.saveDataOnStorage(l.absUrl("href") + "\n");
+                // Добавляем запись
+                dbHandler.addProduct();
 //                System.out.println(l.text());
             }
-        }
-
-        try {
-            // Создаем экземпляр по работе с БД
-            DbHandler dbHandler = DbHandler.getInstance();
-            // Добавляем запись
-            dbHandler.addProduct();
-
-            // Удаление записи с id = 8
-            //dbHandler.deleteProduct(8);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
     }

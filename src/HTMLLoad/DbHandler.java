@@ -7,7 +7,7 @@ import java.util.Collections;
 
 public class DbHandler {
     // Константа, в которой хранится адрес подключения
-    private static final String CON_STR = "jdbc:sqlite:C:\\myfin.db";
+    private static final String CON_STR = "jdbc:sqlite:C:\\Users\\yanus\\IdeaProjects\\testboard\\atb_db.s3db";
 
     // Используем шаблон одиночка, чтобы не плодить множество
     // экземпляров класса DbHandler
@@ -60,11 +60,12 @@ public class DbHandler {
     public void addProduct() {
         // Создадим подготовленное выражение, чтобы избежать SQL-инъекций
         try (PreparedStatement statement = this.connection.prepareStatement(
-                "INSERT INTO Products(`good`, `price`, `category_name`) " +
+
+                "INSERT INTO Product(`name`, `image`, `coast`) " +
                         "VALUES(?, ?, ?)")) {
             statement.setObject(1, "Суши");
-            statement.setObject(2, 14400);
-            statement.setObject(3, "Японская кухня");
+            statement.setObject(2, "Японская кухня");
+            statement.setObject(3, 11400);
             // Выполняем запрос
             statement.execute();
         } catch (SQLException e) {
